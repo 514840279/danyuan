@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>菜单管理页</title>
+<link rel="stylesheet" href="/tk/ainiyue/plugin/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/tk/ainiyue/plugin/bootstrap/css/font-awesome.min.css">
+<link rel="stylesheet" href="/tk/ainiyue/plugin/ztree/css/metroStyle/metroStyle.css">
+<!-- Ionicons -->
+<link rel="stylesheet" href="/tk/ainiyue/plugin/bootstrap/css/ionicons.min.css">
+<link rel="stylesheet" href="/tk/ainiyue/plugin/bootstrap/css/font-awesome.min.css">
+<link rel="stylesheet" href="/tk/ainiyue/plugin/bootstrap/css/index.css">
+<!-- AdminLTE Skins. Choose a skin from the css/skins
+   folder instead of downloading all of them to reduce the load. -->
+<link rel="stylesheet" href="/tk/ainiyue/plugin/bootstrap/css/skins/_all-skins.css">
+
+<script src="/tk/ainiyue/plugin/jquery/jquery-2.2.3.min.js"></script>
+<script src="/tk/ainiyue/plugin/jquery/ajax.js"></script>
+<script src="/tk/ainiyue/plugin/jquery/json2.js"></script>
+<script src="/tk/ainiyue/plugin/nestable/jquery.nestable.js"></script>
+<script src="/tk/ainiyue/plugin/bootstrap/js/bootstrap.min.js"></script>
+<script src="/tk/ainiyue/plugin/ztree/js/jquery.ztree.all.min.js"></script>
+
+<style type="text/css">
+div#rMenu {
+	position: absolute;
+	visibility: hidden;
+	top: 0;
+	text-align: left;
+	padding: 2px;
+}
+
+div#rMenu ul li {
+	margin: 1px 0;
+	padding: 0 5px;
+	cursor: pointer;
+	list-style: none outside none;
+}
+.row-right{
+	text-align: right;
+}
+</style>
+
+
+</head>
+<body>
+
+	<div>
+		<ul id="ztree" class="ztree"></ul>
+	</div>
+	<div id="rMenu" class="dropdown">
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+			<li role="presentation"><a role="menuitem" tabindex="-1" id="m_add" onclick="addTreeNode();">增加节点</a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1" id="m_update" onclick="updateTreeNode();">修改节点</a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1" id="m_del" onclick="removeTreeNode();">删除节点</a></li>
+			<li role="presentation" class="divider"></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1" id="m_expand" onclick="expand();">展开下一级节点</a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1" id="m_expandSon" onclick="expandSon();">展开所有子节点</a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1" id="m_collapse" onclick="collapse();">折叠子节点</a></li>
+			<li role="presentation" class="divider"></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1" id="m_expandAll" onclick="expandAll();">全部展开</a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1" id="m_collapseAll" onclick="collapseAll();">全部折叠</a></li>
+		</ul>
+	</div>
+
+<!-- <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"> -->
+<!-- 	开始演示模态框 -->
+<!-- </button> -->
+<!-- 模态框（Modal） -->
+<div class="modal fade bs-example-modal-lg" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					新增节点
+				</h4>
+			</div>
+			<form action="" method="post">
+				<div class="modal-body">
+					<div class="row">
+						<span class="col-md-3 row-right" >  id : </span>
+						<input  type="text" name="fModuleId" id="f_module_id" disabled="disabled" hidden="hidden"/>
+						<input class="col-md-5" type="text" name="fModuleId" id="f_module_id1" disabled="disabled"/>
+						<span class="col-md-4" >  *唯一主键 </span>
+					</div>
+					<div class="row">
+						<span class="col-md-3 row-right" > 全称 : </span>
+						<input class="col-md-5" type="text" name="fFullName" id="f_full_name"/>
+						<span class="col-md-4" > * 用户显示 </span>
+					</div>
+					<div class="row">
+						<span class="col-md-3 row-right" > 图标 : </span>
+						<input class="col-md-5" type="text" name="fIcon" id="f_icon" value="fa  fa-desktop"/>
+						<span class="col-md-4" > * 用户表示菜单样式 </span>
+					</div>
+					<div class="row">
+						<span class="col-md-3 row-right" > target : </span>
+						<input class="col-md-5" type="text" name="fTarget" id="f_target" value="iframe"/>
+						<span class="col-md-4" > *expand、iframe </span>
+					</div>
+					<div class="row">
+						<span class="col-md-3 row-right" > 描述 : </span>
+						<input class="col-md-5" type="text" name="fDescription"  id="f_description"/>
+						<span class="col-md-4" > * </span>
+					</div>
+					<div class="row">
+						<span class="col-md-3 row-right" > 地址: </span>
+						<input class="col-md-5" type="text" name="fUrlAddress" id="f_url_address" />
+						<span class="col-md-4" > * 用于调用 </span>
+					</div>
+					<div class="row" >
+						<span class="col-md-3 row-right" > 上一级目录: </span>
+						<input  type="text" name="fParentId" id="f_parent_id"  value="0" hidden="hidden" />
+						<input class="col-md-5" type="text" name="fParentName" id="f_parent_name"  value="0" disabled="disabled" />
+						<span class="col-md-4" > * 用于指定位置 </span>
+					</div>
+					<div class="row">
+						<span class="col-md-3 row-right" > 排序: </span>
+						<input class="col-md-5" type="text" name="fSortCode" id="f_sort_code" value="1"/>
+						<span class="col-md-4" > * 用户排序 </span>
+					</div>
+					<div class="row">
+						<span class="col-md-3 row-right" > 是否可删除 : </span>
+						<input class="col-md-5" type="text" name="fAllowDelete"  id="f_allow_delete"/>
+						<span class="col-md-4" >  </span>
+					</div>
+	
+					<div class="row">	
+						<span class="col-md-3 row-right" > 是否可编辑 : </span>
+						<input class="col-md-5" type="text" name="fAllowEdit" id="f_allow_edit"/>
+						<span class="col-md-4" >  </span>
+					</div>
+					<div class="row">
+						<span class="col-md-3 row-right" > 是否可expand : </span>
+						<input class="col-md-5" type="text" name="fAllowExpand" id="f_allow_expand"/>
+						<span class="col-md-4" >  </span>
+						<input class="col-md-5" type="text" name="fCreateUserId" id="f_create_user_id" hidden="hidden"/>
+						<input class="col-md-5" type="text" name="fCreateUserName" id="f_create_user_name" hidden="hidden"/>
+					</div>
+	<!-- 				<div class="row"> -->
+	<!-- 					<span class="col-md-3 row-right" > 创建时间: </span> -->
+	<!-- 					<input class="col-md-5" type="text" name="fCreateDate" id="f_create_date"/> -->
+	<!-- 					<span class="col-md-4" >  </span> -->
+	<!-- 				</div> -->
+	<!-- 				<div class="row"> -->
+	<!-- 					<span class="col-md-3 row-right" > 创建用户id: </span> -->
+	<!-- 					<input class="col-md-5" type="text" name="fCreateUserId" id="f_create_user_id"/> -->
+	<!-- 					<span class="col-md-4" >  </span> -->
+	<!-- 				</div> -->
+	<!-- 				<div class="row"> -->
+	<!-- 					<span class="col-md-3 row-right" > 创建用户姓名: </span> -->
+	<!-- 					<input class="col-md-5" type="text" name="fCreateUserName" id="f_create_user_name" /> -->
+	<!-- 					<span class="col-md-4" >  </span> -->
+	<!-- 				</div> -->
+					<div class="row">
+						<span class="col-md-3 row-right" > 删除标记 : </span>
+						<input class="col-md-5" type="text" name="fDeleteMark" id="f_delete_mark"/>
+						<span class="col-md-4" >  </span>
+					</div>
+					<div class="row">
+						<span class="col-md-3 row-right" > 代码 : </span>
+						<input class="col-md-5" type="text" name="fEnCode" id="f_en_code"/>
+						<span class="col-md-4" >  </span>
+					</div>
+					<div class="row">
+						<span class="col-md-3 row-right" > 是否可标记: </span>
+						<input class="col-md-5" type="text" name="fEnabledMark" id="f_enabled_mark"/>
+						<span class="col-md-4" >  </span>
+					</div>
+					<div class="row">
+						<span class="col-md-3 row-right" > 是否目录 : </span>
+						<input class="col-md-5" type="text" name="fIsMenu" id="f_is_menu"/>
+						<span class="col-md-4" >  </span>
+					</div>
+					<div class="row">
+						<span class="col-md-3 row-right" > 是否公有: </span>
+						<input class="col-md-5" type="text" name="fIsPublic" id="f_is_public"/>
+						<span class="col-md-4" >  </span>
+					</div>
+	<!-- 				<div class="row"> -->
+	<!-- 					<span class="col-md-3 row-right" > 修改日期 : </span> -->
+	<!-- 					<input class="col-md-5" type="text" name="fModifyDate" id="f_modify_date"/> -->
+	<!-- 					<span class="col-md-4" >  </span> -->
+	<!-- 				</div> -->
+	<!-- 				<div class="row"> -->
+	<!-- 					<span class="col-md-3 row-right" > 修改用户id : </span> -->
+	<!-- 					<input class="col-md-5" type="text" name="fModifyUserId" id="f_modify_user_id"/> -->
+	<!-- 					<span class="col-md-4" >  </span> -->
+	<!-- 				</div> -->
+	<!-- 				<div class="row"> -->
+	<!-- 					<span class="col-md-3 row-right" > 修改用户名 : </span> -->
+	<!-- 					<input class="col-md-5" type="text" name="fModifyUserName" id="f_modify_user_name"/> -->
+	<!-- 					<span class="col-md-4" >  </span> -->
+	<!-- 				</div> -->
+				</div>
+			</form>		
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" onclick="submit();" >提交添加	</button>
+			</div>
+
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+	</div>
+	
+	
+<!-- 	修改的modal -->
+	<div class="modal fade bs-example-modal-lg" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="updateModalLabel">
+					修改节点
+				</h4>
+			</div>
+			<form action="" method="post">
+				<div class="modal-body">
+					<div class="row">
+						<span class="col-md-3 row-right" >  id : </span>
+						<input  type="text" name="fModuleId" id="u_module_id" disabled="disabled" hidden="hidden"/>
+						<input class="col-md-5" type="text" name="fModuleId" id="u_module_id1" disabled="disabled"/>
+						<span class="col-md-4" >  *唯一主键 </span>
+					</div>
+					<div class="row">
+						<span class="col-md-3 row-right" > 全称 : </span>
+						<input class="col-md-5" type="text" name="fFullName" id="u_full_name"/>
+						<span class="col-md-4" > * 用户显示 </span>
+					</div>
+					<div class="row">
+						<span class="col-md-3 row-right" > 图标 : </span>
+						<input class="col-md-5" type="text" name="fIcon" id="u_icon" value="fa  fa-desktop"/>
+						<span class="col-md-4" > * 用户表示菜单样式 </span>
+					</div>
+					<div class="row">
+						<span class="col-md-3 row-right" > target : </span>
+						<input class="col-md-5" type="text" name="fTarget" id="u_target" value="iframe"/>
+						<span class="col-md-4" > *expand、iframe </span>
+					</div>
+					<div class="row">
+						<span class="col-md-3 row-right" > 描述 : </span>
+						<input class="col-md-5" type="text" name="fDescription"  id="u_description"/>
+						<span class="col-md-4" > * </span>
+					</div>
+					<div class="row">
+						<span class="col-md-3 row-right" > 地址: </span>
+						<input class="col-md-5" type="text" name="fUrlAddress" id="u_url_address" />
+						<span class="col-md-4" > * 用于调用 </span>
+					</div>
+					<div class="row" >
+						<span class="col-md-3 row-right" > 上一级目录: </span>
+						<input  type="text" name="fParentId" id="u_parent_id"  value="0" hidden="hidden" />
+						<input class="col-md-5" type="text" name="fParentName" id="u_parent_name"  value="0" disabled="disabled" />
+						<span class="col-md-4" > * 用于指定位置 </span>
+					</div>
+					<div class="row">
+						<span class="col-md-3 row-right" > 排序: </span>
+						<input class="col-md-5" type="text" name="fSortCode" id="u_sort_code" value="1"/>
+						<span class="col-md-4" > * 用户排序 </span>
+					</div>
+					<div class="row">
+						<span class="col-md-3 row-right" > 是否可删除 : </span>
+						<input class="col-md-5" type="text" name="fAllowDelete"  id="u_allow_delete"/>
+						<span class="col-md-4" >  </span>
+					</div>
+	
+					<div class="row">	
+						<span class="col-md-3 row-right" > 是否可编辑 : </span>
+						<input class="col-md-5" type="text" name="fAllowEdit" id="u_allow_edit"/>
+						<span class="col-md-4" >  </span>
+					</div>
+					<div class="row">
+						<span class="col-md-3 row-right" > 是否可expand : </span>
+						<input class="col-md-5" type="text" name="fAllowExpand" id="u_allow_expand"/>
+						<span class="col-md-4" >  </span>
+					</div>
+					<div class="row" hidden="hidden">
+						<span class="col-md-3 row-right" > 创建时间: </span>
+						<input class="col-md-5" type="text" name="fCreateDate" id="u_create_date"/>
+						<span class="col-md-4" >  </span>
+					</div>
+					<div class="row" hidden="hidden">
+						<span class="col-md-3 row-right" > 创建用户id: </span>
+						<input class="col-md-5" type="text" name="fCreateUserId" id="u_create_user_id"/>
+						<span class="col-md-4" >  </span>
+					</div>
+					<div class="row" hidden="hidden">
+						<span class="col-md-3 row-right" > 创建用户姓名: </span>
+						<input class="col-md-5" type="text" name="fCreateUserName" id="u_create_user_name" />
+						<span class="col-md-4" >  </span>
+					</div>
+					<div class="row" hidden="hidden">
+						<span class="col-md-3 row-right" > 删除标记 : </span>
+						<input class="col-md-5" type="text" name="fDeleteMark" id="u_delete_mark"/>
+						<span class="col-md-4" >  </span>
+					</div>
+					<div class="row">
+						<span class="col-md-3 row-right" > 代码 : </span>
+						<input class="col-md-5" type="text" name="fEnCode" id="u_en_code"/>
+						<span class="col-md-4" >  </span>
+					</div>
+					<div class="row">
+						<span class="col-md-3 row-right" > 是否可标记: </span>
+						<input class="col-md-5" type="text" name="fEnabledMark" id="u_enabled_mark"/>
+						<span class="col-md-4" >  </span>
+					</div>
+					<div class="row">
+						<span class="col-md-3 row-right" > 是否目录 : </span>
+						<input class="col-md-5" type="text" name="fIsMenu" id="u_is_menu"/>
+						<span class="col-md-4" >  </span>
+					</div>
+					<div class="row">
+						<span class="col-md-3 row-right" > 是否公有: </span>
+						<input class="col-md-5" type="text" name="fIsPublic" id="u_is_public"/>
+						<span class="col-md-4" >  </span>
+					</div>
+					<div class="row" hidden="hidden">
+						<span class="col-md-3 row-right" > 修改日期 : </span>
+						<input class="col-md-5" type="text" name="fModifyDate" id="u_modify_date"/>
+						<span class="col-md-4" >  </span>
+					</div>
+					<div class="row" hidden="hidden">
+						<span class="col-md-3 row-right" > 修改用户id : </span>
+						<input class="col-md-5" type="text" name="fModifyUserId" id="u_modify_user_id"/>
+						<span class="col-md-4" >  </span>
+					</div>
+					<div class="row" hidden="hidden">
+						<span class="col-md-3 row-right" > 修改用户名 : </span>
+						<input class="col-md-5" type="text" name="fModifyUserName" id="u_modify_user_name"/>
+						<span class="col-md-4" >  </span>
+					</div>
+				</div>
+			</form>		
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" onclick="updatesubmit();" >提交添加	</button>
+			</div>
+
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+
+
+	<script type="text/javascript" src="js/system_function_ztree.js"></script>
+</body>
+</html>
