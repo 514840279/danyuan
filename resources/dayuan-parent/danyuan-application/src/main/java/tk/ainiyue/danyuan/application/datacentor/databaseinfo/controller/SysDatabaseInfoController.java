@@ -22,20 +22,21 @@ public class SysDatabaseInfoController {
 	//
 	@Autowired
 	private SysDatabaseInfoService sysDatabaseInfoService;
-
-	/**  
-	 *  方法名 ： getSysDatabaseInfoService 
-	 *  功    能 ： 返回变量 sysDatabaseInfoService 的值  
-	 *  @return: SysDatabaseInfoService 
-	 */  
+	
+	/**
+	 * 方法名 ： getSysDatabaseInfoService
+	 * 功 能 ： 返回变量 sysDatabaseInfoService 的值
+	 * 
+	 * @return: SysDatabaseInfoService
+	 */
 	public SysDatabaseInfoService getSysDatabaseInfoService() {
 		return sysDatabaseInfoService;
 	}
-
-	/**  
-	 *  方法名 ： setSysDatabaseInfoService 
-	 *  功    能 ： 设置变量 sysDatabaseInfoService 的值
-	 */  
+	
+	/**
+	 * 方法名 ： setSysDatabaseInfoService
+	 * 功 能 ： 设置变量 sysDatabaseInfoService 的值
+	 */
 	public void setSysDatabaseInfoService(SysDatabaseInfoService sysDatabaseInfoService) {
 		this.sysDatabaseInfoService = sysDatabaseInfoService;
 	}

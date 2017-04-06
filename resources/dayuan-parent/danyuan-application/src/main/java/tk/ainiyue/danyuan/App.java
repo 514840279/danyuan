@@ -16,14 +16,13 @@ import org.springframework.context.annotation.Configuration;
  * 时 间 ： 2016年7月20日 下午8:24:37
  * 版 本 ： V1.0
  */
-
 @ComponentScan // 组件扫描
 @Configuration // 配置控制
 @EnableAutoConfiguration // 启用自动配置
 @SpringBootApplication
 public class App {
-    
-    public static void main(String[] args) throws Exception {
-        SpringApplication.run(App.class, args);
-    }
+	
+	public static void main(String[] args) throws Exception {
+		SpringApplication.run(App.class, args);
+	}
 }

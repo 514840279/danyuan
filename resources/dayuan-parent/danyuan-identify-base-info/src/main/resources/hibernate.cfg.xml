@@ -58,8 +58,10 @@
 <!-- 		</property> -->
 		<!-- 需要关联的 hibernate 映射文件 .hbm.xml -->
 
-<!-- 		<mapping class="tk.ainiyue.danyuan.po.SysFilesInfo" /> -->
-<!-- 		<mapping class="tk.ainiyue.danyuan.po.SysFilesTitle" /> -->
-<!-- 		<mapping class="tk.ainiyue.danyuan.po.SysTransformInfo" /> -->
+<!-- 		<mapping class="org.danyuan.identify.base.info.po.SysQqPersionNatureInfo" /> -->
+<!-- 		<mapping class="org.danyuan.identify.base.info.po.SysQqPersionRlInfo" /> -->
+<!-- 		<mapping class="org.danyuan.identify.base.info.po.SysVirtualPersionBaseInfo" /> -->
+<!-- 		<mapping class="org.danyuan.identify.base.info.po.SysVirtualTemp" /> -->
+		<mapping class="org.danyuan.identify.base.info.po.VVirtualSql" />
 	</session-factory>
 </hibernate-configuration>

@@ -6,25 +6,14 @@
 	<session-factory>
     
     	<!-- Hibernate 连接数据库的基本信息 -->
-		<!-- <property name="connection.username">datatransform</property> -->
-		<!-- <property name="connection.password">dbdatatransform</property> -->
-		<!-- <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property> -->
-		<!-- <property name="connection.url">jdbc:oracle:thin:@172.16.3.2:1521:orcl2</property> -->
+		<property name="connection.username">wth</property>
+		<property name="connection.password">wth</property>
+		<property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+		<property name="connection.url">jdbc:oracle:thin:@172.16.3.18:1521:orcl18</property>
 
 		<!-- Hibernate 的基本配置 -->
 		<!-- Hibernate 使用的数据库方言 -->
-		<!-- <property name="dialect">org.hibernate.dialect.OracleDialect</property> -->
-
-		<property name="connection.username">root</property>
-		<property name="connection.password">root</property>
-		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false</property>
-
-		<!-- Hibernate 的基本配置 -->
-		<!-- Hibernate 使用的数据库方言 -->
-		<property name="dialect">org.hibernate.dialect.MySQL57InnoDBDialect</property>
-
-
+		<property name="dialect">org.hibernate.dialect.OracleDialect</property>
 
 		<!-- 运行时是否打印 SQL -->
 		<property name="show_sql">true</property>
@@ -62,17 +51,19 @@
 
 		<!-- 扫描注解的方式配置 -->
 		<!--当然也可以不使用上面这种指定的方式，而使用包扫描的方式做为替换，推荐这种 -->
-		<!-- <property name="packagesToScan"> -->
-		<!-- <list> -->
-		<!-- <value>tk.ainiyue.danyuan.po.*</value> -->
-		<!-- </list> -->
-		<!-- </property> -->
+<!-- 		<property name="packagesToScan"> -->
+<!-- 			<list> -->
+<!-- 				<value>tk.ainiyue.danyuan.po.*</value> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
 		<!-- 需要关联的 hibernate 映射文件 .hbm.xml -->
 
-		<!-- <mapping class="tk.ainiyue.danyuan.po.SysFilesInfo" /> -->
-		<!-- <mapping class="tk.ainiyue.danyuan.po.SysFilesTitle" /> -->
-		<!-- <mapping class="tk.ainiyue.danyuan.po.SysTransformInfo" /> -->
-		<mapping class="org.danyuan.weburl.bean.WebUrl" />
-		<mapping class="org.danyuan.weburl.bean.RootUrl" />
+<!-- 		<mapping class="tk.ainiyue.danyuan.po.SysFilesInfo" /> -->
+<!-- 		<mapping class="tk.ainiyue.danyuan.po.SysFilesTitle" /> -->
+		<mapping class="org.danyuan.identify.base.info.po.SysQqPersionNatureInfo" />
+		<mapping class="org.danyuan.identify.base.info.po.SysQqPersionRlInfo" />
+		<mapping class="org.danyuan.identify.base.info.po.SysVirtualPersionBaseInfo" />
+		<mapping class="org.danyuan.identify.base.info.po.SysVirtualTemp" />
+		<mapping class="org.danyuan.identify.base.info.po.VVirtualSql" />
 	</session-factory>
 </hibernate-configuration>

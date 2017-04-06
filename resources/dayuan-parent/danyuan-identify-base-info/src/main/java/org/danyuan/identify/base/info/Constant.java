@@ -1,9 +1,5 @@
 package org.danyuan.identify.base.info;
 
-import java.util.List;
-
-import org.danyuan.utils.files.TxtFilesReader;
-
 public class Constant {
 	
 	// 指定要提取数据的路径列表文件
@@ -18,5 +14,5 @@ public class Constant {
 	// 配置文件的路径
 	static String				path					= System.getProperty("user.dir") + Constant._CONTROLL_NAME;
 	// 配置文件内的文件路径列表
-	public static List<String>	strlist					= TxtFilesReader.readFileByLines(path);
+	// public static List<String> strlist = TxtFilesReader.readFileByLines(path);
 }

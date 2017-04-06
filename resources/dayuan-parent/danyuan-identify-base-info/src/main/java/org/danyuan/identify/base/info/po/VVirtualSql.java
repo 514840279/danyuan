@@ -17,13 +17,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "v_virtual_sql")
 public class VVirtualSql {
-	@Column(name = "from_tables")
+	@Column(name = "from_tables", length = 2000)
 	private String	fromTables;
-	@Column(name = "to_tables")
+	@Column(name = "to_tables", length = 2000)
 	private String	toTables;
-	@Column(name = "find_sql")
+	@Column(name = "find_sql", length = 2000)
 	private String	findSql;
-	@Column(name = "delete_flag")
+	@Column(name = "delete_flag", length = 2000)
 	private String	deleteFlag;
 	
 	/**  

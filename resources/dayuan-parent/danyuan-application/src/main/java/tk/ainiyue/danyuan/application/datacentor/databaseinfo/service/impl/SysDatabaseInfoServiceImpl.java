@@ -19,20 +19,21 @@ public class SysDatabaseInfoServiceImpl implements SysDatabaseInfoService {
 	//
 	@Autowired
 	private SysDatabaseInfoDao sysDatabaseInfoDao;
-
-	/**  
-	 *  方法名 ： getSysDatabaseInfoDao 
-	 *  功    能 ： 返回变量 sysDatabaseInfoDao 的值  
-	 *  @return: SysDatabaseInfoDao 
-	 */  
+	
+	/**
+	 * 方法名 ： getSysDatabaseInfoDao
+	 * 功 能 ： 返回变量 sysDatabaseInfoDao 的值
+	 * 
+	 * @return: SysDatabaseInfoDao
+	 */
 	public SysDatabaseInfoDao getSysDatabaseInfoDao() {
 		return sysDatabaseInfoDao;
 	}
-
-	/**  
-	 *  方法名 ： setSysDatabaseInfoDao 
-	 *  功    能 ： 设置变量 sysDatabaseInfoDao 的值
-	 */  
+	
+	/**
+	 * 方法名 ： setSysDatabaseInfoDao
+	 * 功 能 ： 设置变量 sysDatabaseInfoDao 的值
+	 */
 	public void setSysDatabaseInfoDao(SysDatabaseInfoDao sysDatabaseInfoDao) {
 		this.sysDatabaseInfoDao = sysDatabaseInfoDao;
 	}
