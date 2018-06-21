@@ -6,14 +6,14 @@
 	<session-factory>
     
     	<!-- Hibernate 连接数据库的基本信息 -->
-		<property name="connection.username">datatransform</property>
-		<property name="connection.password">dbdatatransform</property>
-		<property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
-		<property name="connection.url">jdbc:oracle:thin:@172.16.3.2:1521:orcl2</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">root</property>
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql:///yunnanrencai</property>
 
 		<!-- Hibernate 的基本配置 -->
 		<!-- Hibernate 使用的数据库方言 -->
-		<property name="dialect">org.hibernate.dialect.OracleDialect</property>
+		<property name="dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
 
 		<!-- 运行时是否打印 SQL -->
 		<property name="show_sql">true</property>
@@ -58,8 +58,8 @@
 <!-- 		</property> -->
 		<!-- 需要关联的 hibernate 映射文件 .hbm.xml -->
 
-		<mapping class="tk.ainiyue.danyuan.po.SysFilesInfo" />
-		<mapping class="tk.ainiyue.danyuan.po.SysFilesTitle" />
-		<mapping class="tk.ainiyue.danyuan.po.SysTransformInfo" />
+		<mapping class="org.danyuan.utils.zidian.City" />
+<!-- 		<mapping class="tk.ainiyue.danyuan.po.SysFilesTitle" /> -->
+<!-- 		<mapping class="tk.ainiyue.danyuan.po.SysTransformInfo" /> -->
 	</session-factory>
 </hibernate-configuration>
